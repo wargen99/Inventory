@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:th="http://www.thymeleaf.org">
+<head>
+<title>Project List</title>
+</head>
+<body>
+	<p>
+		<a href="#" th:href="@{/logout}">로그 아웃 </a>
+	</p>
+	<h1>Project List</h1>
+	<table>
+		<tr>
+			<th>IDX</th>
+			<th>Name</th>
+		</tr>
+		<tr th:each="prj : ${projects}">
+			<td th:text="${prj.idx}">1</td>
+			<!-- <td th:text="${prj.name}"><a th:href="@{/ProjectInfo/${prj.idx}}">라바 비콘</a></td> -->
+			<td>
+				<a
+				href="/" 
+				th:href="@{|/ProjectInfo/${prj.idx}|}"
+				th:text="${prj.name}"				
+				>라바 비콘</a>
+			</td>
+		</tr>
+	</table>
+	<p><a href="/createproject" th:href="@{/createproject}">프로젝트 생성</a></p>
+</body>
+</html>

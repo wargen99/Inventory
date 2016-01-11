@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
+  <head>
+    <title>Create Project</title>
+  </head>
+  <body>
+    <h1>Create Project</h1>    
+    <form th:action="@{/ProjectInfo}" method="post">
+    
+    <input type="hidden" name="_method" value="put" />
+      <label for="j_username">Project name</label>:
+      <input type="text" id="j_username" name="name" /> <br />      
+      <label for="j_username">Project Description</label>:
+      <input type="text" id="j_username" name="description" /> <br />
+      <input type="submit" value="Create" />
+    </form>
+    <p>
+		<a href="#" th:href="@{/ProjectList}">목록</a>
+	</p>
+  </body>
+</html>

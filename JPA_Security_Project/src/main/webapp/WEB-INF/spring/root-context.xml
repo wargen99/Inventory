@@ -1,0 +1,73 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns:jpa="http://www.springframework.org/schema/data/jpa"
+	xmlns:context="http://www.springframework.org/schema/context"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
+		http://www.springframework.org/schema/data/jpa http://www.springframework.org/schema/data/jpa/spring-jpa.xsd
+		http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context.xsd">
+
+	<!-- Root Context: defines shared resources visible to all other web components -->
+
+	<!-- Data Source -->
+	
+	<bean id="dataSource"
+		class="org.springframework.jdbc.datasource.SimpleDriverDataSource">
+
+		<property name="driverClass" value="org.apache.derby.jdbc.ClientDriver"></property>
+		<property name="username" value="user"></property>
+		<property name="password" value="1234"></property>
+		<property name="url"
+			value="jdbc:derby://localhost:1527/faas;create=true"></property>
+	</bean>
+
+	<!-- <bean class="org.springframework.web.servlet.mvc.annotation.AnnotationMethodHandlerAdapter"> 
+		<property name="messageConverters"> <list> <bean class="org.springframework.http.converter.json.GsonHttpMessageConverter" 
+		/> </list> </property> </bean> -->
+
+
+	<bean id="gsonbuilder" class="com.google.gson.GsonBuilder"></bean>
+	<!-- <jpa:repositories base-package="com.latis.faas.repository" entity-manager-factory-ref="entityManagerFactory"></jpa:repositories> -->
+
+	<jpa:repositories base-package="com.example.faas.repositoryex"
+		entity-manager-factory-ref="entityManagerFactory"></jpa:repositories>
+
+
+	<bean id="entityManagerFactory"
+		class="org.springframework.orm.jpa.LocalContainerEntityManagerFactoryBean">
+		<property name="jpaVendorAdapter">
+			<bean class="org.springframework.orm.jpa.vendor.HibernateJpaVendorAdapter" />
+		</property>
+		<property name="dataSource" ref="dataSource" />
+		<property name="jpaProperties">
+		
+			<props>
+				<prop key="hibernate.dialect">org.hibernate.dialect.DerbyDialect</prop>
+				<prop key="hibernate.connection.pool_size">4</prop>
+				<prop key="hibernate.connection.shutdown">true</prop>
+				<prop key="hibernate.show_sql">true</prop> <!-- SQL 출력 -->
+				<prop key="hibernate.default_schema">latis</prop>
+				<prop key="hibernate.hbm2ddl.auto">create</prop> 
+				<!-- 
+				<prop key="hibernate.ddl_auto">auto</prop>
+				 -->
+			</props>
+		</property>
+		<!-- 엔티티 정의된 클래스들이 있는 패키지 등록 -->
+		<!-- <property name="packagesToScan" value="com.latis.faas.dto" /> -->
+
+		<property name="packagesToScan" value="com.example.faas.dtoex" />
+
+	</bean>
+
+	<bean id="transactionManager" class="org.springframework.orm.jpa.JpaTransactionManager">
+		<property name="entityManagerFactory" ref="entityManagerFactory"></property>
+	</bean>
+
+	<bean id="userService" class="com.example.faas.service.UserServiceImpl"></bean>
+	<bean id="userDao" class="com.example.faas.dao.UserDaoImpl"></bean>
+	
+	<bean id="projectService" class="com.example.faas.service.ProjectServiceImpl"></bean>
+	<bean id="projectDato" class="com.example.faas.dao.ProjectDaoImpl"></bean>
+
+</beans>
