@@ -16,11 +16,11 @@ import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import com.example.faas.dtoex.Group;
 import com.example.faas.dtoex.Person;
 import com.example.faas.dtoex.Project;
+import com.example.faas.dtoex.QGroup;
+import com.example.faas.dtoex.QPerson;
 import com.example.faas.repositoryex.GroupRepository;
 import com.example.faas.repositoryex.PersonRepository;
 import com.example.faas.repositoryex.ProjectRepository;
-import com.latis.faas.dtoex.QGroup;
-import com.latis.faas.dtoex.QPerson;
 import com.mysema.query.jpa.impl.JPAQuery;
 
 @RunWith(SpringJUnit4ClassRunner.class)
